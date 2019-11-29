@@ -9,8 +9,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AuthProject.Controllers
 {
+    [Route("prefix/[controller]")]
     public class HomeController : Controller
     {
+        //https://localhost:5001/prefix/Home
+
+        [Route("index")]
         public IActionResult Index()
         {
             return View();
@@ -18,11 +22,13 @@ namespace AuthProject.Controllers
 
         //(Roles = "s")
         [Authorize]
+        [Route("Privacy")]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [Route("Error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
