@@ -12,7 +12,7 @@ namespace AuthProject.Controllers
     [Route("prefix/[controller]")]
     public class HomeController : Controller
     {
-        //https://localhost:5001/prefix/Home
+        //https://localhost:5001/prefix/Home/index
 
         [Route("index")]
         public IActionResult Index()
