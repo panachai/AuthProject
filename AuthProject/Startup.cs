@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using AuthProject.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AuthProject.Services;
-using AuthProject.Helpers;
 using Microsoft.AspNetCore.Authentication;
 
 namespace AuthProject
@@ -24,23 +22,9 @@ namespace AuthProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
-
-            // configure basic authentication
-            services.AddAuthentication("BasicAuthentication")
-                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
-
-            // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -72,7 +56,7 @@ namespace AuthProject
                 .AllowAnyHeader()
                 .AllowCredentials());
 
-            app.UseAuthentication();
+            //app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
